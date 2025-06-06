@@ -4,7 +4,7 @@ pipeline {
     environment {
         AZURECREDENTIALS = credentials('azure-credentials')
         REPOSITORY = "tempregistrykurs1.azurecr.io"
-        DOCKERIMAGE = "Muhammed Bagci_cicd_jenkins_azr" // Please change this to your desired Docker image name
+        DOCKERIMAGE = "muhammed_bagci_cicd_jenkins_azr" // Please change this to your desired Docker image name
     }
     stages {
         stage('Build Image') {
