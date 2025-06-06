@@ -1,8 +1,8 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
-  name: paul-sky-webapp
-  namespace: paul
+  name: muhammed-sky-webapp
+  namespace: muhammed
 spec:
   image: tempregistrykurs1.azurecr.io/
   interval: 5m
@@ -15,11 +15,11 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
-  name: paul-sky-webapp
-  namespace: paul
+  name: muhammed-sky-webapp
+  namespace: muhammed
 spec:
   imageRepositoryRef:
-    name: paul-sky-webapp
+    name: muhammed-sky-webapp
   policy:
     numerical:
       order: asc
@@ -27,27 +27,27 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: paul-sky-webapp
-  namespace: paul
+  name: muhammed-sky-webapp
+  namespace: muhammed
   labels:
-    app: paul-sky-webapp
-    name: paul-sky-webapp
+    app: muhammed-sky-webapp
+    name: muhammed-sky-webapp
 spec:
   replicas: 1
   revisionHistoryLimit: 3
   selector:
       matchLabels:
-        app: paul-sky-webapp
-        name: paul-sky-webapp
+        app: muhammed-sky-webapp
+        name: muhammed-sky-webapp
   template:
     metadata:
       labels:
-        app: paul-sky-webapp
-        name: paul-sky-webapp
+        app: muhammed-sky-webapp
+        name: muhammed-sky-webapp
     spec:
       containers:
-      - name: paul-sky-webapp
-        image: tempregistrykurs1.azurecr.io/paul-sky-webapp:15
+      - name: muhammed-sky-webapp
+        image: tempregistrykurs1.azurecr.io/muhammed-sky-webapp:15
         ports:
         - containerPort: 80
         resources:
@@ -74,8 +74,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: paul-sky-webapp
-  namespace: paul
+  name: muhammed-sky-webapp
+  namespace: muhammed
 spec:
   ports:
   - name: http
@@ -87,8 +87,8 @@ spec:
 # apiVersion: networking.k8s.io/v1
 # kind: Ingress
 # metadata:
-#   name: paul-sky-webapp
-#   namespace: paul
+#   name: muhammed-sky-webapp
+#   namespace: muhammed
 #   annotations:
 #     kubernetes.io/ingress.class: traefik
 #     cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -96,31 +96,31 @@ spec:
 #     traefik.ingress.kubernetes.io/router.entrypoints: websecure
 # spec:
 #   rules:
-#   - host: paul-sky-webapp.k3s-master01.westus2.cloudapp.azure.com
+#   - host: muhammed-sky-webapp.k3s-master01.westus2.cloudapp.azure.com
 #     http:
 #       paths:
 #       - path: /
 #         pathType: Prefix
 #         backend:
 #           service:
-#             name: paul-sky-webapp
+#             name: muhammed-sky-webapp
 #             port:
 #               number: 80
 #   tls:
 #   - hosts:
-#     - paul-sky-webapp.k3s-master01.westus2.cloudapp.azure.com
-#     secretName: paul-sky-webapp-tls
+#     - muhammed-sky-webapp.k3s-master01.westus2.cloudapp.azure.com
+#     secretName: muhammed-sky-webapp-tls
 # ---
 # apiVersion: cert-manager.io/v1
 # kind: Certificate
 # metadata:
-#   name: paul-sky-webapp
-#   namespace: paul
+#   name: muhammed-sky-webapp
+#   namespace: muhammed
 # spec:
-#   secretName: paul-sky-webapp-tls
+#   secretName: muhammed-sky-webapp-tls
 #   issuerRef:
 #     name: letsencrypt-prod
 #     kind: ClusterIssuer
-#   commonName: paul-sky-webapp.k3s-master01.westus2.cloudapp.azure.com
+#   commonName: muhammed-sky-webapp.k3s-master01.westus2.cloudapp.azure.com
 #   dnsNames:
-#   - paul-sky-webapp.k3s-master01.westus2.cloudapp.azure.com
+#   - muhammed-sky-webapp.k3s-master01.westus2.cloudapp.azure.com

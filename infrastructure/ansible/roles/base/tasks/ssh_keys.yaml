@@ -5,7 +5,7 @@
     state: present
     key: "{{ item }}"
   with_file:
-    - roles/base/files/public_keys/paul.pub
+    - roles/base/files/public_keys/muhammed.pub
   when: ansible_distribution in ['Ubuntu', 'Debian']
   tags:
   - ssh_keys
@@ -17,14 +17,14 @@
     state: present
     shell: /bin/bash
   with_items:
-      - { name: paul, fullname: "Paul Loewen" }
+      - { name: muhammed, fullname: "muhammed bagci" }
 - name: Set authorized keys for each user
   authorized_key:
     user: "{{ item.name }}"
     state: present
     key: "{{ lookup('file', 'roles/base/files/public_keys/{{ item.name }}.pub') }}"
   with_items:
-      - {name: paul }
+      - {name: muhammed }
 - name: Add "{{ item.name }}" user to sudoers
   lineinfile:
     path: /etc/sudoers.d/{{ item.name }}
@@ -34,4 +34,4 @@
     create: yes
     validate: 'visudo -cf %s'
   with_items:
-      - {name: paul }
+      - {name: muhammed }

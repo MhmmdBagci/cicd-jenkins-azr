@@ -2,5 +2,5 @@ all:
   hosts:
     k3s-master01:
       ansible_host: 20.125.24.149
-      ansible_user: paul
+      ansible_user: muhammed
       ansible_port: 22022

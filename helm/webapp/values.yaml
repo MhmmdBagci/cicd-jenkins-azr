@@ -1,5 +1,5 @@
 name: webapp
-namespace: paul
+namespace: muhammed
 image:
   registry: 
   name: nginx
