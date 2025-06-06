@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: muhammed_bagci_cicd_jenkins_azr
+  namespace: muhammed_bagci_cicd_jenkins_azr
+  labels:
+    app: muhammed_bagci_cicd_jenkins_azr
+    name: muhammed_bagci_cicd_jenkins_azr
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+      matchLabels:
+        app: muhammed_bagci_cicd_jenkins_azr
+        name: muhammed_bagci_cicd_jenkins_azr
+  template:
+    metadata:
+      labels:
+        app: muhammed_bagci_cicd_jenkins_azr
+        name: muhammed_bagci_cicd_jenkins_azr
+    spec:
+      containers:
+      - name: muhammed_bagci_cicd_jenkins_azr
+        image: tempregistrykurs1.azurecr.io/muhammed_bagci_cicd_jenkins_azr:5
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: regcred

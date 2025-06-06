@@ -1,0 +1,12 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: muhammed_bagci_cicd_jenkins_azr
+  namespace: muhammed_bagci_cicd_jenkins_azr
+spec:
+  imageRepositoryRef:
+    name: muhammed_bagci_cicd_jenkins_azr
+  policy:
+    numerical:
+      order: asc
+---
