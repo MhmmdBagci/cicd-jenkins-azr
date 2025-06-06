@@ -1,4 +1,3 @@
-// This Jenkinsfile is used to build a Docker image, create a Helm chart, and push both to Azure Container Registry.
 pipeline {
     agent any
     environment {
@@ -21,17 +20,18 @@ pipeline {
                 '''
             }
         }
-        // We use not Helmchart at the moment, we will use flux for now
-        // stage('Build Helmchart') {
-        //     steps {
-        //         sh '''#!/bin/bash
-        //         echo "Building a new helmchart..."
-        //         cd helm && mv webapp \$DOCKERIMAGE
-        //         echo "Building a new helmchart: \$DOCKERIMAGE with Version: $BUILD_ID"
-        //         helm package --app-version "$BUILD_ID" --version "$BUILD_ID" \$DOCKERIMAGE/ || exit 1
-        //         '''
-        //     }
-        // }
+
+        stage('Build Helmchart') {
+            steps {
+                sh '''#!/bin/bash
+                echo "Building a new helmchart..."
+                cd helm
+                echo "Building a new helmchart: $DOCKERIMAGE with Version: $BUILD_ID"
+                helm package webapp --app-version "$BUILD_ID" --version "$BUILD_ID" || exit 1
+                '''
+                }
+        }
+
 
         stage('Push Image') {
             steps {
@@ -48,12 +48,11 @@ pipeline {
             }
         }
         
-        // stage('Push Helmchart') {
-        //     steps {
-        //         sh 'echo "Helmchart will be pushed to Azure AZR..."'
-        //         //TODO: Implement the Helm chart push to Azure Container Registry
-        //     }
-        // }
+        stage('Push Helmchart') {
+            steps {
+                sh 'echo "Helmchart will be pushed to Azure AZR..."'
+            }
+        }
         stage('Genereate Kubernetes Manifest') {
             steps {
                 sh '''#!/bin/bash
